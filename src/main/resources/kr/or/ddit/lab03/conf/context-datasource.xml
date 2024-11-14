@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    데이터베이스 연결을 위한 data source등록-->
+
+    <bean id="dbInfo" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:kr/or/ddit/db/DBInfo.properties"/>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="#{dbInfo.driverClassName}"/>
+        <property name="url" value="#{dbInfo['url']}"/>
+        <property name="username" value="#{dbInfo['user']}"/>
+        <property name="password" value="#{dbInfo['password']}"/>
+    </bean>
+</beans>

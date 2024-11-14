@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="https://logging.apache.org/xml/ns"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="
+                   https://logging.apache.org/xml/ns
+                   https://logging.apache.org/xml/ns/log4j-config-2.xsd">
+
+<!--    appenders : 메세지를 기록하는 매체와 수단(console, file, DB)-->
+<!--    layout : 메세지 기록 형식(pattern)-->
+<!--    logger : 메세지 기록자-->
+<!--    level : 로깅 메세지 이벤트 등급, 메세지의 기록 여부 재어할때 사용됨-->
+<!--    trace debug info warn error fatal-->
+<!--    logger에 설정된 이벤트 등급에 비해 메세지 이벤트 등급이 낮게 설정된 경우 , 메세지는 기록되지 않음-->
+    <Appenders>
+        <Console name="CONSOLE">
+            <PatternLayout pattern="%p -%c %n --> %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="ERROR">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+        <Logger name="kr.or.ddit" level="INFO"/>
+        <Logger name="jdbc.sqltiming" level="DEBUG"/>
+        <Logger name="jdbc.resultsettable" level="DEBUG"/>
+        <Logger name="org.springframework" level="DEBUG"/>
+    </Loggers>
+</Configuration>

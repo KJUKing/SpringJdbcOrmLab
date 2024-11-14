@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mbti.dao.MbtiMapper">
+	<sql id="columnFrag">
+		MT_SORT, MT_TYPE, MT_TITLE, MT_CONTENT
+	</sql>
+	<select id="selectMbtiList" resultType="MbtiVO">
+		SELECT
+			<include refid="columnFrag" />
+		FROM TB_MBTIDESC
+	</select>
+	<select id="selectMbti" resultType="MbtiVO">
+		SELECT
+			<include refid="columnFrag" />
+		FROM TB_MBTIDESC
+		WHERE MT_TYPE = #{mtType}
+	</select>
+	<insert id="insertMbti">
+		<selectKey resultType="int" keyProperty="mtSort" order="BEFORE">
+			SELECT SEQ_MBTI.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TB_MBTIDESC
+		(
+			<include refid="columnFrag" />
+		)VALUES(
+			#{mtSort,jdbcType=NUMERIC}
+			, #{mtType,jdbcType=CHAR}
+			, #{mtTitle,jdbcType=VARCHAR}
+			, #{mtContent,jdbcType=CLOB}
+		)
+	</insert>
+	<update id="updateMbti">
+		UPDATE TB_MBTIDESC
+			SET
+			MT_TITLE = #{mtTitle,jdbcType=VARCHAR}
+			, MT_CONTENT = #{mtContent,jdbcType=CLOB}
+		WHERE MT_TYPE = #{mtType}
+	</update>
+	<delete id="deleteMbti">
+		DELETE FROM TB_MBTIDESC
+		WHERE MT_TYPE = #{mtType}
+	</delete>
+</mapper>
+
+
+
+
+
+
